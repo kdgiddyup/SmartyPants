@@ -47,7 +47,7 @@ require("./app/api/htmlRoutes")(app);
 mongoose.Promise = Promise;
 
 // local or deployed? Use the right mongo db
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/smartypants" );
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/smartlyrics" );
 
 // Hook mongoose connection to db
 var db = mongoose.connection;
