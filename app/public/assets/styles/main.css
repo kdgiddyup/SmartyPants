@@ -4,3 +4,16 @@
 #lyricsModalBody img {
     width: 100%;
 }
+.referentText {
+    background-color: #000;
+    color: #fff;
+    padding: 5px;
+    border-radius: 5px;
+}
+.referentText a {
+    color: #fff;
+}
+.referentText button {
+    background-color: #fff;
+    opacity: 1;
+}

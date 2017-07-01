@@ -9,7 +9,7 @@ var cheerio = require("cheerio");
 var api = require('genius-api');
 var genius = new api(process.env.GENIUS_CLIENT_ACCESS_TOKEN);
 
-var path = require("path");  // for testing only; this would be deprecated when react elements are built
+
 
 module.exports = function(app) {
   
@@ -81,9 +81,5 @@ app.post("/api/lyrics", function(req,res){
 
 });
 
-// for testing only; this is a default route for serving the home.html; would be deprecated when react components are added
-  app.use(function(req, res) {
-    res.sendFile(path.join(__dirname, "/../public/home.html"));
-  });
 
 };

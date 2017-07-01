@@ -15,157 +15,27 @@
 
   <!-- main css -->
   <link rel="stylesheet" href="./assets/styles/main.css">
+
+
+
 </head>
 
 <body>
 <div class="container">
   <div class="row">
-  <div class="input-group">
-   <input class="input" id="lyricsSearch" name="lyricsSearch" placeholder="Search song lyrics" type="text">
-   <button class="btn btn-primary" id="lyricsSearchButton" type="submit">Submit</button>
-  </div>
-  </div>
-  <div id="searchResults" class="row">
-  <h2>Results</h2>
-    <div class="row" id="resultsList">
-    </div>  
-  </div><!-- /results row-->
-</div>
-
-<!-- lyrics modal -->
-<div id="lyricsModal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 id="lyricsModalTitle" class="modal-title">Searching . . . <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
-<span class="sr-only">Loading...</span></h4>
-      </div>
-      <div id="lyricsModalBody" class="modal-body">
-          <i class="fa fa-spinner" aria-hidden="true"></i>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
+    <div class="col-lg-12">
+      <a href="/search.html">Search for songs, lyrics or artists</a> 
     </div>
-
   </div>
 </div>
 
-<script>
-  // these functions will move to a helper.js file
-  $(document).ready(function(){
-    $("#lyricsSearchButton").on("click",function(){
-      var input=$("#lyricsSearch").val().trim();
-      console.log("searching",input);
-      $.post("/api/search/",{input: input},function(data){
-        renderSearchResults(data.songs);
-      });
-    })
-
-    // activate tooltip bootrap function we'll use with annotations
-    $('[data-toggle="tooltip"]').tooltip(); 
-  }) // end ready function
-
-  // helper functions
-  function renderSearchResults(songs){
-    // takes in genius api  search results
-    // we'll store results in a globally available object
-    var results ={};
-    
-    // remove any previous results
-    $("#resultsList").empty();
-    
-    // loop through api call results and extract data
-    $(songs).each(function(index,element){
-      // add properties to global results object
-      results[element.song_id] = {
-      title: element.title,
-      artist: element.artist,
-      image: element.thumb,
-      lyrics: element.lyrics
-    };
-      
-      // generate HTML
-      var thisSong = $("<div>").attr({"class":"song col-lg-12","data-song-id":element.id});
-  
-      thisSong.append(`<h2>${element.title}</h2>`);
-  
-      thisSong.append(`<p>${element.artist} <span class="glyphicon glyphicon-align-justify lyricsButton" data-song-id=${element.song_id} data-toggle="modal" data-target="#lyricsModal" aria-hidden="true" data-lyrics-url=${element.lyrics}></span> <span class="glyphicon glyphicon-heart favoriteButton" data-song-id=${element.song_id} aria-hidden="true"></span></p>`);
-      
-      // add song div to display 
-      $("#resultsList").append(thisSong); 
-    }); // end add song results loop
-   
-    // attach click listener to lyrics button
-    $(".lyricsButton").on("click",function(){
-      
-      //clear hidden modal window of any previous search results
-      $("#lyricsModalTitle").html("Searching . . . <i class=\"fa fa-spinner fa-pulse fa-3x fa-fw\"></i>");
-       $("#lyricsModalBody").html("<i class=\"fa fa-spinner\" aria-hidden=\"true\"></i>");
-
-      // what song is this?
-      var thisSong = $(this).attr("data-song-id");
-      
-      // post song lyrics request
-      var lyricsPost = {
-        url:results[thisSong].lyrics,
-        title: results[thisSong].title,
-        artist: results[thisSong].artist,
-        image: results[thisSong].image
-      };
-
-      $.post("/api/lyrics", lyricsPost, function(data){
-        
-        // update modal window with artist name
-        $("#lyricsModalTitle").text(data.title);
-        
-        // add in artist's name and lyrics
-        $("#lyricsModalBody").html(`<p class="artist_name">${data.artist}</p><p>${data.text}</p>`);
-        
-        // add artist thumb if available to lyrics text
-        if (data.image != "") {
-          var image = $("<img>").attr(
-            {
-              "src":data.image,
-              class:"lyricThumb"
-            });
-          $("#lyricsModalBody").prepend(image);
-        };
-      
-      // **** process returned lyrics html **//
-      // 1. remove native genius hrefs - we'll get those referent annotations through the api; 
-      $(".referent").removeAttr("href");
-      
-      // 2. add click listeners to lyric text to trigger ajax call to our geniusAPI to get and display annotations; it takes a parameter that is the annotation id (an attribute called 'data-id')
-      $(".referent").on("click",function(){
-        var thisRef = $(this);
-
-        $.get(`/api/annotation/${$(thisRef).attr("data-id")}`,function(data) {
-          var thisAnnotation = $(data.annotation.body.html);
-          var closeBtn = $("<button>").attr({type:"button",class:"btn btn-primary close",refId:$(thisRef).attr("data-id")}).html("&times;");
-          $(closeBtn).on("click",function(){
-            $(thisAnnotation).remove();
-          });
-          $(thisAnnotation).prepend(closeBtn);
-          
-          $(thisRef).after(thisAnnotation);
-        });
-      });
-    });
-  });  // end lyrics button click function
-  
-    // attach click listener to favorites button
-    $(".favoriteButton").on("click",function(){
-      $.get(`/api/favorite/${$(this).attr("data-song-id")}`,function(data){
-        console.log("Favorited",data);
-      })
-    });
-  } // end renderSearchResults function
-  </script>
-
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12">
+      <a href="/favorites.html">Get your favorites</a> 
+    </div>
+  </div>
+</div>
 </body>
 
 </html>
