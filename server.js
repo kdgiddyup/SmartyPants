@@ -24,9 +24,7 @@ app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 
 // ===================================================
 // ROUTES
-// geniusApi routes handle requests to the Genius api.
-// mongooseAPI routes handle mongoDB actions.
-// htmlRoutes serves the homepage
+require("./app/routes/routes")(app);
 // ===================================================
 
 // Sets an initial port. We"ll use this later in our listener

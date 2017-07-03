@@ -5,7 +5,7 @@ $(document).ready(function(){
     // clear any auth-related messaging
         $("#message").html("<p>Attempting to create account...</p>");
     // post to authApi . . .       
-        $.post("https://smartlyricsapi.herokuapp.com/signup",function(response){
+        $.post("/signup",function(response){
         console.log("sign-up response:",response);
         if (response.message === "user exists") {
             $("#message").text("User exists already! Try a different username.")
@@ -19,7 +19,7 @@ $(document).ready(function(){
 
     // log in click listener 
     $("#loginBtn").on("click",function(){
-        $.post("https://smartlyricsapi.herokuapp.com/login",function(response){
+        $.post("/login",function(response){
             console.log(response);
         })
     });

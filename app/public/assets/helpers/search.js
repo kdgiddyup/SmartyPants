@@ -3,7 +3,7 @@
     $("#lyricsSearchButton").on("click",function(){
       var input=$("#lyricsSearch").val().trim();
       console.log("searching",input);
-      $.post("https://smartlyricsapi.herokuapp.com/api/search/",{input: input},function(data){
+      $.post("api/search/",{input: input},function(data){
         renderSearchResults(data.songs);
       });
     })
@@ -60,7 +60,7 @@ function renderSearchResults(songs){
     // build a post body:
     var body = {"title":results[thisSong].title,"artist":results[thisSong].artist,"song_id":thisSong,image:results[thisSong].image,lyrics:results[thisSong].lyrics};
     
-    $.post("https://smartlyricsapi.herokuapp.com/api/favorite",body,function(data){
+    $.post("/api/favorites",body,function(data){
       console.log("Favorited",data);
     });
   });

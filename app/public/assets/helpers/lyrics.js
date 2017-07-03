@@ -8,7 +8,7 @@ function fetchLyrics(thisSong,results) {
             image: results[thisSong].image
         };
 
-        $.post("https://smartlyricsapi.herokuapp.com/api/lyrics", lyricsPost, function(data){
+        $.post("/api/lyrics", lyricsPost, function(data){
             
             // update modal window with artist name
             $("#lyricsModalTitle").text(data.title);
@@ -34,7 +34,7 @@ function fetchLyrics(thisSong,results) {
         $(".referent").on("click",function(){
             var thisRef = $(this);
 
-            $.get(`https://smartlyricsapi.herokuapp.com/api/annotation/${$(thisRef).attr("data-id")}`,function(data) {
+            $.get(`/api/annotation/${$(thisRef).attr("data-id")}`,function(data) {
             var thisAnnotation = $(data.annotation.body.html).attr("class","referentText");
             var closeBtn = $("<button>").attr({type:"button",class:"btn btn-primary close",refId:$(thisRef).attr("data-id")}).html("&times;");
             $(closeBtn).on("click",function(){
