@@ -8,6 +8,10 @@ var Schema = mongoose.Schema;
 // stores song titles and ids
 
 var FavoriteSchema = new Schema({
+  // whose favorite is this?
+  user: {
+    type: String
+  },
   // title: a string
   title: {
     type: String

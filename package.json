@@ -9,14 +9,20 @@
   "author": "kdgiddyup",
   "license": "ISC",
   "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.15.0",
     "cheerio": "^1.0.0-rc.1",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "^1.4.3",
     "dotenv": "^4.0.0",
     "express": "^4.13.4",
+    "express-session": "^1.15.3",
     "genius-api": "^0.3.0",
     "lodash": "^4.17.4",
     "mongoose": "^4.11.0",
     "morgan": "^1.8.2",
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0",
     "request-promise": "^4.2.1"
   },
   "engines": {
