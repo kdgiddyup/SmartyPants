@@ -6,7 +6,6 @@ const bodyParser = require("body-parser");
 const logger = require("morgan");
 const app = express()  
 
-
 // dev tool: environment processor
 require('dotenv').config()
 
@@ -27,6 +26,22 @@ app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 require("./app/routes/routes")(app);
 // ===================================================
 
+//===========================================
+// AUTH
+// handles passport user authentication, including login and signup routes
+require("./app/auth/auth")(app);
+// ==========================================
+
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+  var err = new Error('Not Found');
+  err.status = 404;
+  next(err);
+});
+
+app.use(function(err, req, res, next) {
+  res.status(err.status || 500)
+});
 // Sets an initial port. We"ll use this later in our listener
 var PORT = process.env.PORT || 3000;
 
