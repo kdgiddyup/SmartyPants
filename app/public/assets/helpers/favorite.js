@@ -1,9 +1,10 @@
 // what happens when this page is loaded?
   
 $(document).ready(function(){
-    
+    console.log("favorites.js helper functions running");
     // hit the "get all favorited songs" route and render a list of results
     $.get("/api/favorites/",function(data){
+        console.log("attempting to retrieve favorites");
         if (data.length > 0) {
             $("#favoritesTitle").text("Favorites");
            // 
