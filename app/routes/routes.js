@@ -10,7 +10,7 @@ module.exports = function(app) {
 
 /********************
   Mongoose handlers
-********************/
+*********************/
 
     // Route to save our favorited song to mongoDB via mongoose
     app.post("/api/favorites", function(req, res) {

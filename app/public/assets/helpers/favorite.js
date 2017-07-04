@@ -51,7 +51,7 @@ function renderSavedResults(songs){
         
         //clear hidden modal window of any previous search results
         $("#lyricsModalTitle").html("Searching . . .");
-        $("#lyricsModalBody").html("<i class=\"fa fa-spinner fa-pulse fa-3x fa-fw\"></i>");
+        $("#lyricsModalBody").html("<i class=\"fa fa-spinner fa-pulse fa-2x fa-fw\"></i>");
 
         // what song is this?
         var thisSong = $(this).attr("data-song-id");
