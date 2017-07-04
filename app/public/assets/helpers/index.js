@@ -1,24 +1,55 @@
 $(document).ready(function(){
+    // check local storage for a current user
+    // first, does the browser support local storage?
+    if (typeof(Storage) !== "undefined") {
+        // try to retrieve any current user stored from previous log-in
+        if (localStorage.getItem("sl_user")) {
+            var user = localStorage.getItem("sl_user");
+            $("#userGreeting").html(`Welcome, ${user}`);
+            
+            // hide sign-in button and show sign-out button   
+            $("#signinModalBtn").hide();
+            $("#signoutBtn").show();
+        }
+        else {
+            $("#userGreeting").html("Welcome. Please sign up or log in!");
+            $("#signinModalBtn").show();
+            $("#signoutBtn").hide();
+            }
+        }
+        else {
+        console.log("No local storage supported");
+        $("#userGreeting").html("Welcome. Please sign up or log in!");
+    };
 
-    // launch sign up modal 
+    // click listener for sign up modal 
     $("#signinModalBtn").on("click",function(){
         $("#loginModal").modal("show");
         })
+    
+    // hide and set click listener for sign out button
+    $("#signoutBtn").on("click",function(){
+        // remove user's entry from local storage
+        localStorage.removeItem("sl_user");
+        // return to homepage route
+        window.open("/");
+        });
 
     // catch sign up form submit
-
     $("#signup").submit(function() { 
         
         // update auth-related messaging
         $("#message").html("<p>Attempting to create account...</p>");
-        $.post("/signup",$(this).serialize(), function(response){
+        $.post("/api/signup",$(this).serialize(), function(response){
             console.log("sign-up response:",response);
             if (!response.success)  {
-                $("#message").text("User exists already! Try a different username.")
+                $("#message").html(`Sorry, there was a problem: ${response.message}`);
             }
             else {
                 $("#loginModal").modal("hide");
-                $("#userGreeting").text(`Welcome, ${response.message}`);
+                $("#userGreeting").html(response.message);
+                // do successful log-in things
+                loginActions(response);
                 }
             });
             // prevent form from submitting 
@@ -30,7 +61,17 @@ $(document).ready(function(){
     $("#login").submit(function(){
         //auth message
         $("message").html("<p>Attempting to log you in...</p>");
-        $.post("/login",$(this).serialize(),function(response){
+        $.post("/api/login",$(this).serialize(),function(response){
+            if(!response.message) {
+                $("#message").html(`<p>${response.message}</p>`);
+                $("#loginModal > input").empty();
+            }
+            else {
+                $("#userGreeting").html(response.message);
+                $("#loginModal").modal("hide");
+                // do successfull log-in things
+                loginActions(response)
+                }
             console.log("log-in response:",response);
 
         });
@@ -41,3 +82,11 @@ $(document).ready(function(){
     
 }); // end document ready
 
+function loginActions(userInfo){
+    // Store user in local storage
+    localStorage.setItem("sl_user", userInfo.user);
+
+    // hide sign-in button and show sign-out button   
+    $("#signinModalBtn").hide();
+    $("#signoutBtn").show();
+}

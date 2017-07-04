@@ -86,6 +86,7 @@ app.post("/api/lyrics/", function(req, res) {
         });
     });
 
+// where are the auth routes? app/auth/auth.js is where
 
  /* GET Home Page */
 app.get("/", function(req, res){
