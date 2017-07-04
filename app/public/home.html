@@ -29,18 +29,20 @@
       </div>
       <div class="row">
       <div class="col-lg-12">
+        <div class="btn btn-primary" id="signinModalBtn" value="Log in or create account">Log in or create account</div> 
+      </div>
+      <div class="row">
+      <div class="col-lg-12">
         <a href="/search.html">Search for songs, lyrics or artists</a> 
       </div>
     </div>
-  </div>
-
-  <div class="container">
     <div class="row">
       <div class="col-lg-12">
         <a href="/favorites.html">Get your favorites</a> 
       </div>
     </div>
   </div>
+
 
   <!-- log-in modal -->
   <div id="loginModal" class="modal fade" role="dialog">
@@ -53,29 +55,38 @@
           <h4 id="loginModalTitle" class="modal-title">Let's get to know each other! <i class="fa fa-user-circle-o" aria-hidden="true"></i></h4>
         </div>
         <div id="loginModalBody" class="modal-body">
-          <h4>Sign in <i class="fa fa-sign-in" aria-hidden="true"></i></h4>
-            <form class="input-group">
+          <h4>Log in <i class="fa fa-sign-in" aria-hidden="true"></i></h4>
+            <form id="login" role="form" class="input-group">
               <div>
                   <label>Username:</label>
-                  <input type="text" name="username"/>
+                  <input class="form-control" type="text" placeholder="Username" name="username"/>
               </div>
               <div>
                   <label>Password:</label>
-                  <input type="password" name="password"/>
+                  <input class="form-control" type="password" placeholder="Password" name="password"/>
               </div>
               <div>
-                  <input class="btn btn-primary" id="loginBtn" value="Log In"/>
+                  <button class="btn btn-primary" id="loginBtn" value="Log In" type="submit">Log In</button>
               </div>
           </form> <!-- end input-group -->
           <h4>Sign up <i class="fa fa-user-plus" aria-hidden="true"></i></h4>
-              <form class="input-group">
-                <input type="text" placeholder="Username" name="username">
-                <input type="password" placeholder="Password" name="password">
-                <input id="signupBtn" class="btn btn-primary" value="Sign Up"/>
+              <form id="signup" role="form" class="input-group">
+                <div>
+                  <label>Username:</label>
+                  <input class="form-control" type="text" placeholder="Username" name="username"/>
+                </div>
+                <div>
+                  <label>Password:</label>
+                  <input type="password" class="form-control" placeholder="Password" name="password"/>
+                </div>
+                <div>
+                    <button id="signupBtn" type="submit" class="btn btn-primary" value="Sign Up">Sign Up</button>
+                  </div>
               </form> <!-- end input-group -->
-              <div id="message"></div>
+              
         </div>
         <div class="modal-footer">
+          <div id="message"></div>
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         </div>
       </div>
