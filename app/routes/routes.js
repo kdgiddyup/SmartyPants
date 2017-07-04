@@ -15,6 +15,7 @@ module.exports = function(app) {
   // Route to save our favorited song to mongoDB via mongoose
   app.post("/api/favorites", function(req, res) {
     // req.body should include title , artist, song_id, image url, lyrics page url
+    console.log("post favorites route, to:",resourceHost);
     // send it to our smartlyrics api:
     axios.post(`${resourceHost}/api/favorites`,req.body)
         .then(function(response){
@@ -28,7 +29,7 @@ module.exports = function(app) {
 // Route to retrieve and show favorited articles
 app.get("/api/favorites", function(req,res){
   // find favorites of currently logged-in user
- console.log("FAVORITES HIT");
+ console.log("get favorites route, to:",resourceHost);
  axios.get(`${resourceHost}/api/favorites`)
     .then(function(response){
         res.json(response.data)

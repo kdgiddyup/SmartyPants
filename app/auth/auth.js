@@ -9,6 +9,7 @@ module.exports = function(app) {
 
 // Route to send user sign-up info to smartlyricsapi
   app.post("/api/signup", function(req, res) {
+    console.log("sign up route, to:",resourceHost);
     // req.body should include username and password
     // send it to our smartlyrics api:
     axios.post(`${resourceHost}/api/signup`,req.body)
@@ -22,6 +23,7 @@ module.exports = function(app) {
 
 
     app.post("/api/login", function(req, res) {
+        console.log("log in route, to:",resourceHost);
         axios.post(`${resourceHost}/api/login`,req.body).then(function(response){
             res.json(response.data);
         })
@@ -29,7 +31,5 @@ module.exports = function(app) {
             console.log(error)
         });
     });
-
-
 
 }
