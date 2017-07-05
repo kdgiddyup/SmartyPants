@@ -57,12 +57,12 @@ $(document).ready(function(){
     });
 
    
-    // catch log in form submit
+    // catch log-in form submit
     $("#login").submit(function(){
         //auth message
         $("message").html("<p>Attempting to log you in...</p>");
         $.post("/api/login",$(this).serialize(),function(response){
-            if(!response.message) {
+            if(!response.success) {
                 $("#message").html(`<p>${response.message}</p>`);
                 $("#loginModal > input").empty();
             }

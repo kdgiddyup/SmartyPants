@@ -9,16 +9,21 @@ module.exports = function(app) {
 
 // Route to send user sign-up info to smartlyricsapi
   app.post("/api/signup", function(req, res) {
-    console.log("sign up route, to:",resourceHost);
+    console.log("sign-in object:",req.body);
     // req.body should include username and password
+    if (!req.body.username || !req.body.password) {
+        res.json({"success":false,"message":"You must include a username and a password"});
+    }
     // send it to our smartlyrics api:
-    axios.post(`${resourceHost}/api/signup`,req.body)
+    else {
+        axios.post(`${resourceHost}/api/signup`,req.body)
         .then(function(response){
             res.json(response.data);
         })
         .catch(function (error) {
             console.log(error);
         });
+    }
     })
 
 

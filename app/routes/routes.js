@@ -42,17 +42,17 @@ module.exports = function(app) {
         });
     });
 
-// Route to remove favorited article
-app.get("/api/remove/:id", function(req,res){
-  axios.get(`${resourceHost}/api/remove/${req.params.id}`)
-  .then(function(response){
-      console.log("remove song raw response:",response.data);
-      res.send(response.data)
-  })
-  .catch(function (error) {
-      console.log(error);
-  });
-})
+    // Route to remove favorited article
+    app.get("/api/remove/:id", function(req,res){
+    axios.get(`${resourceHost}/api/remove/${req.params.id}`)
+    .then(function(response){
+        console.log("remove song raw response:",response.data);
+        res.send(response.data)
+    })
+    .catch(function (error) {
+        console.log(error);
+    });
+    })
 
 /****************
 Genius api handlers
