@@ -1,3 +1,5 @@
+var user = currentUser();
+
 // what happens when search button is clicked?
   $(document).ready(function(){
     $("#lyricsSearchButton").on("click",function(){
@@ -72,3 +74,18 @@ function renderSearchResults(songs){
 
   $(`.favoriteButton[data-song-id='${data.song_id}']`).addClass("favorite");
 } // end renderSearchResults function
+
+function currentUser(){
+    // first, does the browser support local storage?
+    if (typeof(Storage) !== "undefined") {
+        // try to retrieve any current user stored from previous log-in
+        if (localStorage.getItem("sl_user")) {
+            user = localStorage.getItem("sl_user");
+            return user;
+        }
+        else {
+            console.log("No local storage supported");
+            return false;
+        }
+    }
+};

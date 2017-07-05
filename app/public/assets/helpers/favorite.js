@@ -1,16 +1,9 @@
 // what happens when this page is loaded?
   
 $(document).ready(function(){
-    // check local storage for a current user
-    // first, does the browser support local storage?
-    if (typeof(Storage) !== "undefined") {
-        // try to retrieve any current user stored from previous log-in
-        if (localStorage.getItem("sl_user")) {
-            var user = localStorage.getItem("sl_user");
-            $("#userGreeting").html(`${user}'s favorites ...'`);
-        }
-    }
-
+   var user = currentUser();
+    $("#userGreeting").html(`${user}'s favorites ...`);
+    
     // hit the "get all favorited songs" route with username appended and render a list of results
     $.get(`/api/favorites/${user}`,function(data){
         console.log("attempting to retrieve favorites");
@@ -78,3 +71,18 @@ function renderSavedResults(songs){
     })
   
   } // end renderSavedResults function
+
+  function currentUser(){
+    // first, does the browser support local storage?
+    if (typeof(Storage) !== "undefined") {
+        // try to retrieve any current user stored from previous log-in
+        if (localStorage.getItem("sl_user")) {
+            user = localStorage.getItem("sl_user");
+            return user;
+        }
+        else {
+            console.log("No local storage supported");
+            return false;
+        }
+    }
+};

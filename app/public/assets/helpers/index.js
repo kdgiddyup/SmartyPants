@@ -6,27 +6,18 @@ $(document).ready(function(){
     $('[data-toggle="tooltip"]').tooltip();
 
     // check local storage for a current user
-    // first, does the browser support local storage?
-    if (typeof(Storage) !== "undefined") {
-        // try to retrieve any current user stored from previous log-in
-        if (localStorage.getItem("sl_user")) {
-            var user = localStorage.getItem("sl_user");
-            $("#userGreeting").html(`Welcome, ${user}`);
-            
-            // hide sign-in button and show sign-out button   
-            $("#signinModalBtn").hide();
-            $("#signoutBtn").show();
-        }
-        else {
-            $("#userGreeting").html("Welcome. Please sign up or log in!");
-            $("#signinModalBtn").show();
-            $("#signoutBtn").hide();
-            $("#menuBtns").hide();
-            }
-        }
-        else {
-        console.log("No local storage supported");
+    if (currentUser()) {
+        $("#userGreeting").html(`Welcome, ${user}`);
+        
+        // hide sign-in button and show sign-out button   
+        $("#signinModalBtn").hide();
+        $("#signoutBtn").show();
+    }
+    else {
         $("#userGreeting").html("Welcome. Please sign up or log in!");
+        $("#signinModalBtn").show();
+        $("#signoutBtn").hide();
+        $("#menuBtns").hide();
     };
 
     // click listener for sign up modal 
@@ -105,3 +96,18 @@ function loginActions(userInfo){
 function clearInputs(){
     $("#loginModal" > "input").val("");
 }
+
+function currentUser(){
+    // first, does the browser support local storage?
+    if (typeof(Storage) !== "undefined") {
+        // try to retrieve any current user stored from previous log-in
+        if (localStorage.getItem("sl_user")) {
+            user = localStorage.getItem("sl_user");
+            return user;
+        }
+        else {
+            console.log("No local storage supported");
+            return false;
+        }
+    }
+};
