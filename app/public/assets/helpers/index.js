@@ -1,4 +1,7 @@
 $(document).ready(function(){
+    // clear modal window inputs from any possible previous activity
+    clearInputs();
+
     // check local storage for a current user
     // first, does the browser support local storage?
     if (typeof(Storage) !== "undefined") {
@@ -32,7 +35,7 @@ $(document).ready(function(){
         // remove user's entry from local storage
         localStorage.removeItem("sl_user");
         // return to homepage route
-        window.open("/");
+        window.open("/","_self");
         });
 
     // catch sign up form submit
@@ -86,7 +89,14 @@ function loginActions(userInfo){
     // Store user in local storage
     localStorage.setItem("sl_user", userInfo.user);
 
+    // clear inputs
+    clearInputs();
+
     // hide sign-in button and show sign-out button   
     $("#signinModalBtn").hide();
     $("#signoutBtn").show();
+}
+
+function clearInputs(){
+    $("#loginModal" > "input").val("");
 }
