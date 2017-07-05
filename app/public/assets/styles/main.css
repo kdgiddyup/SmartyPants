@@ -17,3 +17,15 @@
     background-color: #fff;
     opacity: 1;
 }
+#header, #authBtns, #menuBtns {
+    text-align: center;
+}
+#menuBtns button {
+    width: 90%;
+    min-height: 100px;
+    margin: 40px 0 0 0;
+    font-size: 4em;
+}
+.favorite {
+    color: red;
+}

@@ -1,9 +1,18 @@
 // what happens when this page is loaded?
   
 $(document).ready(function(){
-    console.log("favorites.js helper functions running");
-    // hit the "get all favorited songs" route and render a list of results
-    $.get("/api/favorites/",function(data){
+    // check local storage for a current user
+    // first, does the browser support local storage?
+    if (typeof(Storage) !== "undefined") {
+        // try to retrieve any current user stored from previous log-in
+        if (localStorage.getItem("sl_user")) {
+            var user = localStorage.getItem("sl_user");
+            $("#userGreeting").html(`${user}'s favorites ...'`);
+        }
+    }
+
+    // hit the "get all favorited songs" route with username appended and render a list of results
+    $.get(`/api/favorites/${user}`,function(data){
         console.log("attempting to retrieve favorites");
         if (data.length > 0) {
             $("#favoritesTitle").text("Favorites");
@@ -33,7 +42,8 @@ function renderSavedResults(songs){
       title: element.title,
       artist: element.artist,
       lyrics: element.lyrics,
-      image: element.image
+      image: element.image,
+      user: element.user
     }; 
       // generate HTML
       var thisSong = $("<div>").attr({class:"song col-lg-12","data-song-id":element.song_id});

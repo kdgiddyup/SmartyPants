@@ -2,6 +2,9 @@ $(document).ready(function(){
     // clear modal window inputs from any possible previous activity
     clearInputs();
 
+    // some fancy tooltips will be nice
+    $('[data-toggle="tooltip"]').tooltip();
+
     // check local storage for a current user
     // first, does the browser support local storage?
     if (typeof(Storage) !== "undefined") {
@@ -18,6 +21,7 @@ $(document).ready(function(){
             $("#userGreeting").html("Welcome. Please sign up or log in!");
             $("#signinModalBtn").show();
             $("#signoutBtn").hide();
+            $("#menuBtns").hide();
             }
         }
         else {
@@ -95,6 +99,7 @@ function loginActions(userInfo){
     // hide sign-in button and show sign-out button   
     $("#signinModalBtn").hide();
     $("#signoutBtn").show();
+    $("#menuBtns").show();
 }
 
 function clearInputs(){

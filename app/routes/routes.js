@@ -29,11 +29,10 @@ module.exports = function(app) {
     })
 
     // Route to retrieve and show favorited articles
-    app.get("/api/favorites", function(req, res){
+    app.get("/api/favorites/:user", function(req, res){
     
         // find favorites of currently logged-in user
-        console.log("get favorites route, to:",`${resourceHost}/api/favorites`);
-        axios.get(`${resourceHost}/api/favorites`)
+        axios.get(`${resourceHost}/api/favorites/${req.params.user}`)
             .then(function(response){
                 res.json(response.data)
             })
