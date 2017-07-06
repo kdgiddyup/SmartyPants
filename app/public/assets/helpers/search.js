@@ -65,16 +65,29 @@ function renderSearchResults(songs){
   // attach click listener to favorites buttons
   $(".favoriteButton").on("click",function(){
     var thisSong = $(this).attr("data-song-id");
-    
-    // build a post body:
-    var body = {"title":results[thisSong].title,"artist":results[thisSong].artist,"song_id":thisSong,image:results[thisSong].image,lyrics:results[thisSong].lyrics,user:results[thisSong].user};
-    
-    $.post("/api/favorites",body,function(data){
-      console.log("Favorited",data);  
-    });
 
-    // add "favorite" to class for this song
-    $(this).addClass("favorite");
+    // is this already favorited? then this is really a remove operation
+    if ($(this).hasClass("favorite")) {
+       // remove "favorite" class for this song
+        $(this).removeClass("favorite");
+       
+       // hit /api/remove
+        $.get(`/api/remove/${thisSong}`,function(response){
+            console.log(response);
+        })
+    }
+    else {
+      
+      // build a post body:
+      var body = {"title":results[thisSong].title,"artist":results[thisSong].artist,"song_id":thisSong,image:results[thisSong].image,lyrics:results[thisSong].lyrics,user:results[thisSong].user};
+      
+      $.post("/api/favorites",body,function(data){
+        console.log("Favorited",data);  
+      });
+
+      // add "favorite" to class for this song
+      $(this).addClass("favorite");
+    }
   });
 
 
