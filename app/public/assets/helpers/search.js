@@ -24,7 +24,8 @@ function renderSearchResults(songs){
     
     // loop through api call results and extract data
     $(songs).each(function(index,element){
-      // add properties to global results object, including current user, who will be associated with any favoriting action
+      // add properties to global results object, including current user, who will be associated with any favoriting action     
+      
       results[element.song_id] = {
       title: element.title,
       artist: element.artist,
@@ -36,9 +37,10 @@ function renderSearchResults(songs){
       
       // generate HTML
       var thisSong = $("<div>").attr({"class":"song col-lg-12","data-song-id":element.id});
-  
+      
+      
       // build up song div 
-      thisSong.append(`<h2>${element.title} <span class="glyphicon glyphicon-align-justify lyricsButton" data-song-id=${element.song_id} data-toggle="modal" data-target="#lyricsModal" aria-hidden="true" data-lyrics-url=${element.lyrics}></span> <span class="glyphicon glyphicon-heart favoriteButton ${element.favorited}" data-song-id=${element.song_id} aria-hidden="true"></span> </h2>`);
+      thisSong.append(`<h2>${element.title} <span class="glyphicon glyphicon-align-justify lyricsButton" data-song-id=${element.song_id} data-toggle="modal" data-target="#lyricsModal" aria-hidden="true" data-lyrics-url=${element.lyrics}></span> <span class="glyphicon glyphicon-heart favoriteButton ${element.favorite}" data-song-id=${element.song_id} aria-hidden="true"></span> </h2>`);
   
       thisSong.append(`<p class="artist">${element.artist}</p>`);
       
@@ -68,11 +70,14 @@ function renderSearchResults(songs){
     var body = {"title":results[thisSong].title,"artist":results[thisSong].artist,"song_id":thisSong,image:results[thisSong].image,lyrics:results[thisSong].lyrics,user:results[thisSong].user};
     
     $.post("/api/favorites",body,function(data){
-      console.log("Favorited",data);
-      });
+      console.log("Favorited",data);  
+    });
+
+    // add "favorite" to class for this song
+    $(this).addClass("favorite");
   });
 
-  $(`.favoriteButton[data-song-id='${data.song_id}']`).addClass("favorite");
+
 } // end renderSearchResults function
 
 function currentUser(){
