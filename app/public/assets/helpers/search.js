@@ -14,6 +14,7 @@ var user = currentUser();
       
       // we'll send input and user, since we'll use user info in back end to check on favorited status of songs
       $.post("api/search/",{input,user},function(data){
+        console.log(data);
         renderSearchResults(data.songs);
       });
     })
