@@ -24,26 +24,38 @@
 
 <body>
 <div class="container">
-      <div id="header" class="row">
+    <div id="header" class="row">
         <div class="col-lg-12">
           <h1><a href="/">SmartLyrics</a></h1>
           <p id="userGreeting"></p>
         </div>
     </div>
     
+  <div class="row" id="menuBtns">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+          <a href="/">
+            <button type="button" class="btn btn-default btn-lg" data-toggle="tooltip" data-placement="auto top" title="Return to homepage">
+              <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+            </button>
+          </a> 
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+          <a href="/favorites.html">
+            <button type="button" class="btn btn-default btn-lg" data-toggle="tooltip" data-placement="auto top" title="See your saved songs">
+              <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+            </button>
+          </a> 
+        </div>
+  </div>
+
   <div class="row">
-    <div class="col-lg-12">
-        <a href="/">Home</a> | <a href="/favorites.html">Favorites</a>
+    <div id="searchInput" class="col-lg-12 input-group">
+      <input class="input" id="lyricsSearch" name="lyricsSearch" placeholder="Enter lyrics, artists or song titles" type="text">
+      <button class="btn btn-primary" id="lyricsSearchButton" type="submit">Submit</button>
     </div>
   </div>
-  <div class="row">
-  <div class="input-group">
-   <input class="input" id="lyricsSearch" name="lyricsSearch" placeholder="Enter lyrics, artists or song titles" type="text">
-   <button class="btn btn-primary" id="lyricsSearchButton" type="submit">Submit</button>
-  </div>
-  </div>
+
   <div id="searchResults" class="row">
-  
     <div class="col-lg-12" id="resultsList">
     </div>  
   </div><!-- /results row-->

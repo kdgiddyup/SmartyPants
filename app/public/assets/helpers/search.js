@@ -2,6 +2,12 @@ var user = currentUser();
 
 // what happens when search button is clicked?
   $(document).ready(function(){
+
+    // check local storage for a current user
+    if (currentUser()) {
+        $("#userGreeting").html(`Welcome, ${user}`);
+    }
+
     $("#lyricsSearchButton").on("click",function(){
       var input=$("#lyricsSearch").val().trim();
       console.log("searching",input);
