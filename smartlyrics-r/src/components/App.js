@@ -1,8 +1,13 @@
-import React, { Component } from 'react';
-import '../App.css';
-import Header from "./common/Header";
-import MenuBtns from "./common/MenuBtns";
-import AuthModal from "./common/modal/AuthModal";
+import React, { Component } from 'react'
+import { BrowserRouter as Router, Route, IndexRoute } from 'react-router-dom'
+import { createHashHistory } from 'history';
+import '../App.css'
+import Root from "./Root"
+import Header from "./common/Header"
+import MenuBtns from "./common/MenuBtns"
+import AuthModal from "./common/modals/AuthModal"
+import Search from "./Search"
+import Favorites from "./Favorites"
 
 class App extends Component {
   constructor() {
@@ -51,22 +56,45 @@ class App extends Component {
     )
   }
 
+  // needed to construct these  function to 1) pass the user into <Search> component since it's being called by <Route> and 2) conditionally render MenuBtns only if user is logged in
+  MySearch = (props) => {
+    return (
+      <Search user={this.state.user} {...props}/> 
+    )
+  }
+  MyFavorites = (props) => {
+    return (
+      <Favorites user={this.state.user} {...props}/> 
+    )
+  }
+  
+  RenderMenu = () => {
+    return (
+      (!this.state.user) ? null : <MenuBtns/> 
+    )
+  }
+
+
   render() {
     return (
-      <div className="appWrapper">
-        <div className="container">
-
+      <Router>
+        <Root>
+            
           {/* render header and send the modal render method as a property */}
-          <Header user={this.state.user} updateUser={this.updateUser} greeting={this.state.greeting} />
-          
-          {/* Modal will render but not be visible until triggered programmatically; we send as props our user, if any, and a method for updating user's name */}
-          <AuthModal user={this.state.user} updateUser={this.updateUser} updateGreeting={this.updateGreeting}/>   
-          
-          {/* these are our main search/home/favorite actions */}
-          <MenuBtns />      
-        </div>
-
-      </div>
+            <Header user={this.state.user} updateUser={this.updateUser} greeting={this.state.greeting} />
+            
+            {/* Modal will render but not be visible until triggered programmatically; we send as props our user, if any, and a method for updating user's name */}
+            <AuthModal user={this.state.user} updateUser={this.updateUser} updateGreeting={this.updateGreeting}/>   
+            
+            {/* use a function to determine if search/favorite buttons should render */}
+            {this.RenderMenu()}
+            
+            {/* routes matching our <Links> around buttons at <MenuBtns> */}
+            <Route path="/search" render={this.MySearch}/>
+            <Route path="/favorites" render={this.MyFavorites}/>
+                  
+        </Root>
+      </Router>
     );
   }
 }

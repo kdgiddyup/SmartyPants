@@ -105,7 +105,6 @@ class AuthModal extends Component {
     }
 
     storeUser = (userInfo) => {
-        console.log("User info to store:",userInfo);
         // Store user in local storage
         localStorage.setItem("sl_user", userInfo.username);
     }
@@ -126,7 +125,6 @@ class AuthModal extends Component {
     }    
     // form type depends user choice so we need conditions
     form = (type) => {
-        console.log("Button clicked . . .");
         if (type === "login"){
             this.setState({
                 formType: "login"
