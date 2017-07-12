@@ -5,12 +5,12 @@ $(document).ready(function(){
     $("#userGreeting").html(`${user}'s favorites ...`);
     
     // hit the "get all favorited songs" route with username appended and render a list of results
-    $.get(`/api/favorites/${user}`,function(data){
-        console.log("attempting to retrieve favorites");
-        if (data.length > 0) {
+    $.get(`/api/favorites/${user}`,function(response){
+        console.log("favorites response:",response);
+        if (response.length > 0) {
             $("#favoritesTitle").text("Favorites");
            // 
-           renderSavedResults(data);
+           renderSavedResults(response);
         }
         else {
             $("#favoritesList").html("<h2 id=\"favoritesTitle\">No results</h2><p>You haven't saved any favorites! <a href=\"/search.html\">Search for some here</a>.</p>");

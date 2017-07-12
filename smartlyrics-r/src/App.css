@@ -17,6 +17,7 @@
 .referentText button {
     background-color: #fff;
     opacity: 1;
+    cursor: pointer
 }
 #header, #authBtns, #menuBtns {
     text-align: center;
@@ -52,4 +53,7 @@
 }
 #lyricsSearchButton {
     margin: 10px 0;
+}
+.lyricsButton {
+    cursor: pointer;
 }

@@ -34,7 +34,8 @@ module.exports = function(app) {
         // find favorites of currently logged-in user
         axios.get(`${resourceHost}/api/favorites/${req.params.user}`)
             .then(function(response){
-                res.json(response.data)
+                if (response.data.success)
+                    res.json(response.data.data)
             })
             .catch(function (error) {
                 console.log(error);
@@ -45,8 +46,8 @@ module.exports = function(app) {
     app.get("/api/remove/:id", function(req,res){
     axios.get(`${resourceHost}/api/remove/${req.params.id}`)
     .then(function(response){
-        console.log("remove song raw response:",response.data);
-        res.send(response.data)
+        
+        res.send(response)
     })
     .catch(function (error) {
         console.log(error);

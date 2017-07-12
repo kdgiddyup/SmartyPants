@@ -79,9 +79,9 @@ class App extends Component {
     return (
       <Router>
         <Root>
-            
+          <Route exact path="/" component={Root}/>
           {/* render header and send the modal render method as a property */}
-            <Header user={this.state.user} updateUser={this.updateUser} greeting={this.state.greeting} />
+           <Header user={this.state.user} updateUser={this.updateUser} greeting={this.state.greeting} />
             
             {/* Modal will render but not be visible until triggered programmatically; we send as props our user, if any, and a method for updating user's name */}
             <AuthModal user={this.state.user} updateUser={this.updateUser} updateGreeting={this.updateGreeting}/>   

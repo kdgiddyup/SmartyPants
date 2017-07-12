@@ -49,13 +49,36 @@ const ajax = {
     },
 
     // hit our api to post a favorite
-    favorite: ( song ) => {
+    // song is an object of song data
+    favorite: ( song, error, success ) => {
 
         // request should include title , artist, song_id, image url, lyrics page url
         $.post(`${resource}/api/favorites`,song,(response) => {
-            console.log("response:",response)      
+            if (!response.success) {
+                error(response.message)
+            }
+            else {
+                success(response.song_id)  
+            }    
         })
-    }
+    },
+
+    // hit our api to remove a favorite
+    // here, we only need song_id
+    remove: ( song_id, error, success ) => { 
+        $.get(`${resource}/api/remove/${song_id}`, (response) => {
+            if (!response.success) {
+                error(response.message)
+            }
+        })
+    .then(function(response){
+        console.log("remove song raw response:",response.data);
+        res.send(response.data)
+    })
+    .catch(function (error) {
+        console.log(error);
+    });
+    })
 
 }
 

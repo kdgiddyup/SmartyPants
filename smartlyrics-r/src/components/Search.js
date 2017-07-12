@@ -37,9 +37,13 @@ class Search extends Component {
     // method for saving a favorite song
     SetFavorite = (song_id) => {
         const songs = this.state.songs; 
+        // loop through songs in state to find which matches this id
         for (var i=0;i<songs.length;i++){
             if (songs[i].song_id === song_id) {
                 const thisSong = songs[i].song_id;
+                // is this a favoriting or an unfavoriting?
+                if (this.favorite == "favorite")
+                    
                 thisSong.favorite="favorite";
                 const favPost = {
                     title:thisSong.title,
