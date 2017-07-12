@@ -9,13 +9,13 @@ class FavoriteResults extends Component {
     renderSongs() {
         return this.props.results.map(song => (
             <FavoritedSong
-                key={song.song_id}
                 title={song.title}
                 song_id={song.song_id}
                 lyrics={song.lyrics}
                 favorite={song.favorite}
                 artist={song.artist}
                 thumb={song.thumb}
+                RemoveFavorite={this.props.RemoveFavorite}
             />)
         );   
     }

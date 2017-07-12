@@ -7,9 +7,9 @@ import ajax from "../../utils/ajax"
 class SearchResults extends Component {
     
     renderSongs() {
-        return this.props.results.songs.map(song => (
+
+        return this.props.results.map(song => (
             <SearchedSong
-                key={song.song_id}
                 title={song.title}
                 song_id={song.song_id}
                 lyrics={song.lyrics}

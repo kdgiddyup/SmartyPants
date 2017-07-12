@@ -56,7 +56,7 @@ class App extends Component {
     )
   }
 
-  // needed to construct these  function to 1) pass the user into <Search> component since it's being called by <Route> and 2) conditionally render MenuBtns only if user is logged in
+  // needed to construct these  functions to 1) pass the user into <Search> component since it's being called by <Route> and 2) conditionally render MenuBtns only if user is logged in
   MySearch = (props) => {
     return (
       <Search user={this.state.user} {...props}/> 

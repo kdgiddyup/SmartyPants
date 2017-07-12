@@ -8,9 +8,7 @@ class Search extends Component {
     super();
     this.state = {
         songs: null
-    };
-    this.SetFavorite = this.SetFavorite.bind(this); 
-
+        };
     }
     handleSubmit = (event) => {
         event.preventDefault();
@@ -29,48 +27,50 @@ class Search extends Component {
         //success function sets state
         (response) => {
             this.setState({
-                songs:response
+                songs:response.songs
             })
         })
     }
 
-    // method for saving a favorite song
+    // method for toggling a favored song in search results
     SetFavorite = (song_id) => {
         const songs = this.state.songs; 
+        var favPost = {};
         // loop through songs in state to find which matches this id
         for (var i=0;i<songs.length;i++){
+             
             if (songs[i].song_id === song_id) {
-                const thisSong = songs[i].song_id;
+               
+                const thisSong = songs[i];
                 // is this a favoriting or an unfavoriting?
-                if (this.favorite == "favorite")
-                    
-                thisSong.favorite="favorite";
-                const favPost = {
+                (thisSong.favorite === "") ?  thisSong.favorite = "favorite" : thisSong.favorite="";
+                favPost = {
                     title:thisSong.title,
                     artist:thisSong.artist,
                     lyrics:thisSong.lyrics,
-                    image:thisSong.image,
-                    user:thisSong.user
+                    thumb:thisSong.thumb,
+                    user:this.props.user,
+                    song_id:song_id,
+                    favorite:thisSong.favorite
                 }
-            }
+                
+            }        
         }
-        ajax.favorite(this.favPost,
+        ajax.favorite(favPost,
         //error function
         (response) => {
             console.log("Error favoriting:",response)
         },
-        (response) => {
-         // success function
-         // update the favorite status
-         this.thisSong.favorite="favorite";
-         
-         // build a new array to update state
-         var updated = [];
-         updated = () => { 
-             return this.songs.map(song => (
-                 updated.push(song)
-             ))
-         }
+        // success function
+        (response) => { 
+        // build a new array to update state
+        var updated = [...this.state.songs];
+
+        for (var i=0;i<updated.length;i++) {
+            if (updated[i].song_id === response.song.song_id)
+                updated[i] = response.song
+        };   
+        
         this.setState({
              songs:updated
          })

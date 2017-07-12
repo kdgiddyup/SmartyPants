@@ -54,6 +54,7 @@
 #lyricsSearchButton {
     margin: 10px 0;
 }
-.lyricsButton {
+.lyricsButton, .favoriteButton, .removeButton {
     cursor: pointer;
+    margin: 0 5px 0 10px;
 }

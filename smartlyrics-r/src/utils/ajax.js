@@ -1,5 +1,7 @@
 import $ from "jquery";
+
 const resource = "https://smartlyricsapi.herokuapp.com";
+
 const ajax = {
     
     signup: (userInfo,error,success) =>  {
@@ -39,7 +41,7 @@ const ajax = {
     // hit our api to retrieve favorites
     favorites: (input,error,success) =>{
         $.get(`${resource}/api/favorites/${input}`,(response) => {
-            if(response.length===0) {
+            if(!response.success || response.data.length===0) {
                 error("Sorry, there was a problem, or no results.")
             }
             else {
@@ -58,7 +60,8 @@ const ajax = {
                 error(response.message)
             }
             else {
-                success(response.song_id)  
+                console.log(response);
+                success(response)  
             }    
         })
     },
@@ -66,19 +69,18 @@ const ajax = {
     // hit our api to remove a favorite
     // here, we only need song_id
     remove: ( song_id, error, success ) => { 
+        console.log("attempting to remove:",song_id);
+        // get request sends song_id to remove route at api
         $.get(`${resource}/api/remove/${song_id}`, (response) => {
+            console.log("remove response:",response);
             if (!response.success) {
                 error(response.message)
             }
+            else {
+                success(response.song)
+            }
         })
-    .then(function(response){
-        console.log("remove song raw response:",response.data);
-        res.send(response.data)
-    })
-    .catch(function (error) {
-        console.log(error);
-    });
-    })
+    }
 
 }
 
