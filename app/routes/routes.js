@@ -46,8 +46,7 @@ module.exports = function(app) {
     app.get("/api/remove/:id", function(req,res){
     axios.get(`${resourceHost}/api/remove/${req.params.id}`)
     .then(function(response){
-        
-        res.send(response)
+        res.json(response.data)
     })
     .catch(function (error) {
         console.log(error);
